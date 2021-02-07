@@ -70,7 +70,7 @@ resource "google_compute_instance" "dev" {
   metadata = {
     ssh-keys = "${var.user}:${file(var.publickeypath)}"
   }
-
+  
   # to connect to the instance after the creation and execute few commands for provisioning
   # here you can execute a custom Shell script or Ansible playbook
   provisioner "remote-exec" {
@@ -85,14 +85,13 @@ resource "google_compute_instance" "dev" {
     }
 
     # Commands to be executed as the instance gets ready.
-    # installing nginx
+    # set execution permission and start the script
     inline = [
       "sudo yum -y install epel-release",
       "sudo yum -y install nginx",
-      "sudo nginx -v",
+      "sudo nginx -v"
     ]
   }
-
   # Ensure firewall rule is provisioned before server, so that SSH doesn't fail.
   depends_on = [ google_compute_firewall.firewall, google_compute_firewall.webserverrule ]
 
