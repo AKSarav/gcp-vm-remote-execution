@@ -3,7 +3,7 @@ This is a test server definition for GCE+Terraform for GH-9564
 */
 
 provider "google" {
-  project = var.projectt
+  project = var.project
   region  = var.region
 }
 
